@@ -6,7 +6,6 @@
 using namespace geode::prelude;
 using namespace neatmod;
 
-// ─────────────────────────────────────────────
 AgentManager& AgentManager::get() {
     static AgentManager inst;
     return inst;
@@ -19,6 +18,8 @@ void AgentManager::init(PlayLayer* pl, int populationSize, int maxTicks) {
 
     neat::Population::Config cfg;
     cfg.populationSize = populationSize;
+    cfg.addConnRate    = 0.3f;  // higher chance of new connections
+    cfg.addNodeRate    = 0.1f;  // higher chance of new nodes
     m_pop = std::make_unique<neat::Population>(NUM_INPUTS, NUM_OUTPUTS, cfg);
 
     m_agents.resize(populationSize);
@@ -31,10 +32,10 @@ void AgentManager::startGeneration() {
 
     for (int i = 0; i < (int)m_agents.size(); ++i) {
         auto& a = m_agents[i];
-        a.genome    = &m_pop->genomes[i];
-        a.dead      = false;
-        a.xPos      = 0.f;
-        a.fitness   = 0.f;
+        a.genome     = &m_pop->genomes[i];
+        a.dead       = false;
+        a.xPos       = 0.f;
+        a.fitness    = 0.f;
         a.ticksAlive = 0;
     }
 
@@ -42,10 +43,10 @@ void AgentManager::startGeneration() {
 }
 
 void AgentManager::endGeneration() {
-    // Write fitness back to genomes
     for (auto& a : m_agents) {
         if (a.genome)
-            a.genome->fitness = a.fitness;
+            // Fitness = distance + time alive bonus
+            a.genome->fitness = a.xPos + (float)a.ticksAlive * 0.5f;
     }
 
     m_pop->evolve();
@@ -68,26 +69,15 @@ bool AgentManager::tick(float levelX, float levelSpeed, float playerY,
 
         ++a.ticksAlive;
         a.xPos = std::max(a.xPos, levelX);
+        // Fitness updated live
+        a.fitness = a.xPos + (float)a.ticksAlive * 0.5f;
 
-        // Query the neural network
-        if (a.genome) {
-            auto outputs = a.genome->activate(inputs);
-            // outputs[0] > 0.5 → jump
-            // This bool is read by the hook to inject input
-            // (stored on the agent; hook checks it)
-            // For now, log at debug level
-        }
-
-        // Fitness: distance travelled, bonus for staying alive longer
-        a.fitness = a.xPos + (float)a.ticksAlive * 0.01f;
-
-        // Kill if exceeded max ticks
         if (a.ticksAlive >= m_maxTicks) a.dead = true;
     }
 
     if (!anyAlive || m_currentTick >= m_maxTicks) {
         endGeneration();
-        return false; // generation ended
+        return false;
     }
     return true;
 }
@@ -107,14 +97,10 @@ std::vector<float> AgentManager::buildInputs(float speed, float y,
                                               const std::vector<float>& rays) const {
     std::vector<float> in;
     in.reserve(NUM_INPUTS);
-    // Normalise speed (typical GD speed ~10-20 units/tick)
     in.push_back(std::clamp(speed / 20.f, 0.f, 1.f));
-    // Normalise y position (GD level height ~0-320)
     in.push_back(std::clamp(y / 320.f, 0.f, 1.f));
-    // Ray distances (clamped 0-1)
-    for (int i = 0; i < 5 && i < (int)rays.size(); ++i)
-        in.push_back(std::clamp(rays[i], 0.f, 1.f));
-    // Pad if fewer rays provided
+    for (int i = 0; i < 5; ++i)
+        in.push_back(i < (int)rays.size() ? rays[i] : 0.f);
     while ((int)in.size() < NUM_INPUTS) in.push_back(0.f);
     return in;
 }
