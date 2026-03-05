@@ -99,9 +99,11 @@ class $modify(NEATPlayLayer, PlayLayer) {
 
         if (shouldJump && !fields->jumpHeld) {
             m_player1->pushButton(PlayerButton::Jump);
+            m_gameLayer->pushButton(0, true);
             fields->jumpHeld = true;
         } else if (!shouldJump && fields->jumpHeld) {
             m_player1->releaseButton(PlayerButton::Jump);
+            m_gameLayer->releaseButton(0, true);
             fields->jumpHeld = false;
         }
 
