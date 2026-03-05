@@ -56,6 +56,9 @@ public:
 
     void stop();
 
+// Public for hooks
+    std::vector<Agent> m_agents;
+
 private:
     std::unique_ptr<neat::Population> m_pop;
     std::vector<Agent>                m_agents;

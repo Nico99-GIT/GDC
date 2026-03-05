@@ -77,7 +77,7 @@ class $modify(NEATPlayLayer, PlayLayer) {
 
     // ── Level init ──────────────────────────────
     bool init(GJGameLevel* level, bool useReplay) {
-        if (!PlayLayer::init(level, useReplay)) return false;
+        if (!PlayLayer::init(level, useReplay, false)) return false;
 
         auto* fields = m_fields.self();
 

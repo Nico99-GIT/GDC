@@ -271,7 +271,7 @@ public:
     float                     bestFitness = 0.f;
     std::mt19937              rng;
 
-    Population(int inputs, int outputs, const Config& c = {})
+    Population(int inputs, int outputs, const Config& c)
         : cfg(c), rng(std::random_device{}()) {
         // Build initial fully-connected population
         genomes.reserve(cfg.populationSize);
@@ -355,8 +355,10 @@ public:
             allocated += offspring[i];
         }
         // Fill remainder
-        for (int i = 0; allocated < cfg.populationSize; ++i % (int)species.size(), ++allocated)
-            ++offspring[i % species.size()];
+        for (int i = 0; allocated < cfg.populationSize; ++allocated) {
+    ++offspring[i % species.size()];
+    i = (i + 1) % (int)species.size();
+}
 
         // ── 4. Breed new generation ──────────────
         std::vector<Genome> next;
