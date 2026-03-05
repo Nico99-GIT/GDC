@@ -61,7 +61,6 @@ public:
 
 private:
     std::unique_ptr<neat::Population> m_pop;
-    std::vector<Agent>                m_agents;
     PlayLayer*                        m_playLayer = nullptr;
     int                               m_maxTicks  = 3600;
     bool                              m_running   = false;
