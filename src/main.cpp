@@ -69,10 +69,17 @@ class $modify(NEATPlayLayer, PlayLayer) {
         int popSize  = (int)Mod::get()->getSettingValue<int64_t>("population-size");
         int maxTicks = (int)Mod::get()->getSettingValue<int64_t>("max-ticks");
         AgentManager::get().init(this, popSize, maxTicks);
-        this->scheduleOnce([this](float) { m_fields.self()->neatRunning = true; }, 0.5f, "neat_start");
+
+        // Delay NEAT takeover so level fully loads first
+        this->scheduleOnce(schedule_selector(NEATPlayLayer::startNeat), 0.5f);
 
         log::info("[NEAT] Initialized for level: {}", level->m_levelName);
         return true;
+    }
+
+    void startNeat(float) {
+        m_fields.self()->neatRunning = true;
+        log::info("[NEAT] Taking control!");
     }
 
     void update(float dt) {
@@ -134,14 +141,14 @@ class $modify(NEATPlayLayer, PlayLayer) {
 
     void destroyPlayer(PlayerObject* player, GameObject* object) {
         auto* fields = m_fields.self();
-        if (fields->neatRunning) {
-            auto& mgr = AgentManager::get();
-            for (auto& agent : mgr.m_agents)
-                agent.dead = true;
-            this->resetLevel();
+        if (!fields->neatRunning || !object) {
+            PlayLayer::destroyPlayer(player, object);
             return;
         }
-        PlayLayer::destroyPlayer(player, object);
+        auto& mgr = AgentManager::get();
+        for (auto& agent : mgr.m_agents)
+            agent.dead = true;
+        this->resetLevel();
     }
 };
 
