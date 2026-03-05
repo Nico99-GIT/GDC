@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/workspaces/GDC/build/_deps/result-subbuild/CMakeFiles/result-populate"
+		},
+		{
+			"file" : "/workspaces/GDC/build/_deps/result-subbuild/CMakeFiles/result-populate.rule"
+		},
+		{
+			"file" : "/workspaces/GDC/build/_deps/result-subbuild/CMakeFiles/result-populate-complete.rule"
+		},
+		{
+			"file" : "/workspaces/GDC/build/_deps/result-subbuild/result-populate-prefix/src/result-populate-stamp/result-populate-build.rule"
+		},
+		{
+			"file" : "/workspaces/GDC/build/_deps/result-subbuild/result-populate-prefix/src/result-populate-stamp/result-populate-configure.rule"
+		},
+		{
+			"file" : "/workspaces/GDC/build/_deps/result-subbuild/result-populate-prefix/src/result-populate-stamp/result-populate-download.rule"
+		},
+		{
+			"file" : "/workspaces/GDC/build/_deps/result-subbuild/result-populate-prefix/src/result-populate-stamp/result-populate-install.rule"
+		},
+		{
+			"file" : "/workspaces/GDC/build/_deps/result-subbuild/result-populate-prefix/src/result-populate-stamp/result-populate-mkdir.rule"
+		},
+		{
+			"file" : "/workspaces/GDC/build/_deps/result-subbuild/result-populate-prefix/src/result-populate-stamp/result-populate-patch.rule"
+		},
+		{
+			"file" : "/workspaces/GDC/build/_deps/result-subbuild/result-populate-prefix/src/result-populate-stamp/result-populate-test.rule"
+		},
+		{
+			"file" : "/workspaces/GDC/build/_deps/result-subbuild/result-populate-prefix/src/result-populate-stamp/result-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"result-populate"
+		],
+		"name" : "result-populate"
+	}
+}

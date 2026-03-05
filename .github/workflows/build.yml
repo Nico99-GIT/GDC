@@ -1,0 +1,45 @@
+name: Build Geode Mod
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch: # allows manual trigger from Actions tab
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Geode CLI
+        shell: powershell
+        run: |
+          winget install GeodeSDK.GeodeCLI --accept-source-agreements --accept-package-agreements
+          echo "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\GeodeSDK.GeodeCLI_Microsoft.Winget.Source_8wekyb3d8bbwe" >> $env:GITHUB_PATH
+
+      - name: Install Geode SDK
+        shell: powershell
+        run: |
+          geode sdk install C:\GeodeSDK
+          geode sdk install-binaries
+          echo "GEODE_SDK=C:\GeodeSDK" >> $env:GITHUB_ENV
+
+      - name: Configure CMake
+        shell: powershell
+        run: |
+          cmake -B build -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        shell: powershell
+        run: |
+          cmake --build build --config Release
+
+      - name: Upload .geode file
+        uses: actions/upload-artifact@v4
+        with:
+          name: NEATPlayer.geode
+          path: build/Release/*.geode

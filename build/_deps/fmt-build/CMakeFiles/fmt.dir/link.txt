@@ -1,0 +1,2 @@
+/usr/bin/x86_64-w64-mingw32-ar qc libfmt.a CMakeFiles/fmt.dir/src/format.cc.obj CMakeFiles/fmt.dir/src/os.cc.obj
+/usr/bin/x86_64-w64-mingw32-ranlib libfmt.a

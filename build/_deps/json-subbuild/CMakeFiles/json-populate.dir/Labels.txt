@@ -1,0 +1,14 @@
+# Target labels
+ json-populate
+# Source files and their labels
+/workspaces/GDC/build/_deps/json-subbuild/CMakeFiles/json-populate
+/workspaces/GDC/build/_deps/json-subbuild/CMakeFiles/json-populate.rule
+/workspaces/GDC/build/_deps/json-subbuild/CMakeFiles/json-populate-complete.rule
+/workspaces/GDC/build/_deps/json-subbuild/json-populate-prefix/src/json-populate-stamp/json-populate-build.rule
+/workspaces/GDC/build/_deps/json-subbuild/json-populate-prefix/src/json-populate-stamp/json-populate-configure.rule
+/workspaces/GDC/build/_deps/json-subbuild/json-populate-prefix/src/json-populate-stamp/json-populate-download.rule
+/workspaces/GDC/build/_deps/json-subbuild/json-populate-prefix/src/json-populate-stamp/json-populate-install.rule
+/workspaces/GDC/build/_deps/json-subbuild/json-populate-prefix/src/json-populate-stamp/json-populate-mkdir.rule
+/workspaces/GDC/build/_deps/json-subbuild/json-populate-prefix/src/json-populate-stamp/json-populate-patch.rule
+/workspaces/GDC/build/_deps/json-subbuild/json-populate-prefix/src/json-populate-stamp/json-populate-test.rule
+/workspaces/GDC/build/_deps/json-subbuild/json-populate-prefix/src/json-populate-stamp/json-populate-update.rule

@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/workspaces/GDC/build/_deps/bindings-subbuild/CMakeFiles/bindings-populate"
+		},
+		{
+			"file" : "/workspaces/GDC/build/_deps/bindings-subbuild/CMakeFiles/bindings-populate.rule"
+		},
+		{
+			"file" : "/workspaces/GDC/build/_deps/bindings-subbuild/CMakeFiles/bindings-populate-complete.rule"
+		},
+		{
+			"file" : "/workspaces/GDC/build/_deps/bindings-subbuild/bindings-populate-prefix/src/bindings-populate-stamp/bindings-populate-build.rule"
+		},
+		{
+			"file" : "/workspaces/GDC/build/_deps/bindings-subbuild/bindings-populate-prefix/src/bindings-populate-stamp/bindings-populate-configure.rule"
+		},
+		{
+			"file" : "/workspaces/GDC/build/_deps/bindings-subbuild/bindings-populate-prefix/src/bindings-populate-stamp/bindings-populate-download.rule"
+		},
+		{
+			"file" : "/workspaces/GDC/build/_deps/bindings-subbuild/bindings-populate-prefix/src/bindings-populate-stamp/bindings-populate-install.rule"
+		},
+		{
+			"file" : "/workspaces/GDC/build/_deps/bindings-subbuild/bindings-populate-prefix/src/bindings-populate-stamp/bindings-populate-mkdir.rule"
+		},
+		{
+			"file" : "/workspaces/GDC/build/_deps/bindings-subbuild/bindings-populate-prefix/src/bindings-populate-stamp/bindings-populate-patch.rule"
+		},
+		{
+			"file" : "/workspaces/GDC/build/_deps/bindings-subbuild/bindings-populate-prefix/src/bindings-populate-stamp/bindings-populate-test.rule"
+		},
+		{
+			"file" : "/workspaces/GDC/build/_deps/bindings-subbuild/bindings-populate-prefix/src/bindings-populate-stamp/bindings-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"bindings-populate"
+		],
+		"name" : "bindings-populate"
+	}
+}
