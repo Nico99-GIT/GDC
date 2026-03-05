@@ -13,10 +13,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Geode
-        uses: geode-sdk/build-geode-mod/setup@main
-
       - name: Build mod
         uses: geode-sdk/build-geode-mod@main
+        id: build
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
         with:
-          sdk: nightly
+          name: NEATPlayer.geode
+          path: ${{ steps.build.outputs.build-output }}
