@@ -94,7 +94,7 @@ class $modify(NEATPlayLayer, PlayLayer) {
             for (int i = 0; i < 5; ++i)
                 inputs.push_back(i < (int)rays.size() ? rays[i] : 0.f);
             auto out = bestGenome->activate(inputs);
-            shouldJump = (!out.empty() && out[0] > 0.5f);
+            shouldJump = (!out.empty() && out[0] > 0.3f);
         }
 
         if (shouldJump && !fields->jumpHeld) {

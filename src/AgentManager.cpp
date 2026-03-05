@@ -18,8 +18,10 @@ void AgentManager::init(PlayLayer* pl, int populationSize, int maxTicks) {
 
     neat::Population::Config cfg;
     cfg.populationSize = populationSize;
-    cfg.addConnRate    = 0.3f;  // higher chance of new connections
-    cfg.addNodeRate    = 0.1f;  // higher chance of new nodes
+    cfg.addConnRate    = 0.5f;  // higher chance of new connections
+    cfg.addNodeRate    = 0.2f;
+    cfg.perturbStrength = 0.5f;
+    cfg.mutateWeightRate = 0.9f;  // higher chance of new nodes
     m_pop = std::make_unique<neat::Population>(NUM_INPUTS, NUM_OUTPUTS, cfg);
 
     m_agents.resize(populationSize);
