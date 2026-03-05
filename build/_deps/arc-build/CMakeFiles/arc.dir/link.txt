@@ -1,2 +1,0 @@
-/usr/bin/x86_64-w64-mingw32-ar qc libarc.a CMakeFiles/arc.dir/Unity/unity_0_cxx.cxx.obj
-/usr/bin/x86_64-w64-mingw32-ranlib libarc.a

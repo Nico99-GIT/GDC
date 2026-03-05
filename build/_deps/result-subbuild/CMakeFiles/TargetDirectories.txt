@@ -1,3 +1,0 @@
-/workspaces/GDC/build/_deps/result-subbuild/CMakeFiles/result-populate.dir
-/workspaces/GDC/build/_deps/result-subbuild/CMakeFiles/edit_cache.dir
-/workspaces/GDC/build/_deps/result-subbuild/CMakeFiles/rebuild_cache.dir

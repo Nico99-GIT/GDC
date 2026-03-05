@@ -1,2 +1,0 @@
-/usr/bin/x86_64-w64-mingw32-ar qc libasp.a CMakeFiles/asp.dir/Unity/unity_0_cxx.cxx.obj
-/usr/bin/x86_64-w64-mingw32-ranlib libasp.a

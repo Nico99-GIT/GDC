@@ -1,3 +1,0 @@
-/workspaces/GDC/build/_deps/tuliphook-subbuild/CMakeFiles/tuliphook-populate.dir
-/workspaces/GDC/build/_deps/tuliphook-subbuild/CMakeFiles/edit_cache.dir
-/workspaces/GDC/build/_deps/tuliphook-subbuild/CMakeFiles/rebuild_cache.dir
