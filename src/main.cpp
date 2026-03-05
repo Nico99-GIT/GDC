@@ -69,7 +69,7 @@ class $modify(NEATPlayLayer, PlayLayer) {
         int popSize  = (int)Mod::get()->getSettingValue<int64_t>("population-size");
         int maxTicks = (int)Mod::get()->getSettingValue<int64_t>("max-ticks");
         AgentManager::get().init(this, popSize, maxTicks);
-        fields->neatRunning = true;
+        this->scheduleOnce([this](float) { m_fields.self()->neatRunning = true; }, 0.5f, "neat_start");
 
         log::info("[NEAT] Initialized for level: {}", level->m_levelName);
         return true;
