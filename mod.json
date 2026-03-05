@@ -1,0 +1,52 @@
+{
+    "geode": "4.0.0",
+    "gd": {
+        "win": "2.2074",
+        "android": "2.2074",
+        "mac": "2.2074"
+    },
+    "id": "flairr207.gdc",
+    "name": "- GDC -",
+    "version": "1.0.0",
+    "description": "Trains a NEAT neural network to beat Geometry Dash levels using multi-agent simulations and evolutionary generations.",
+    "developer": "Flairr207",
+    "settings": {
+        "population-size": {
+            "name": "Population Size",
+            "description": "Number of AI agents per generation",
+            "type": "int",
+            "default": 50,
+            "min": 10,
+            "max": 200
+        },
+        "max-ticks": {
+            "name": "Max Ticks Per Agent",
+            "description": "Maximum physics ticks before an agent is killed",
+            "type": "int",
+            "default": 3600,
+            "min": 500,
+            "max": 20000
+        },
+        "mutation-rate": {
+            "name": "Mutation Rate",
+            "description": "Probability of a weight mutation (0.0 - 1.0)",
+            "type": "float",
+            "default": 0.8,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "show-all-agents": {
+            "name": "Show All Agents",
+            "description": "Render ghost players for every agent (may impact performance)",
+            "type": "bool",
+            "default": true
+        },
+        "show-hud": {
+            "name": "Show GDC HUD",
+            "description": "Show generation/fitness overlay while running",
+            "type": "bool",
+            "default": true
+        }
+    },
+    "tags": ["gameplay", "bot", "ai"]
+}
