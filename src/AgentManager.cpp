@@ -1,6 +1,5 @@
 #include "AgentManager.hpp"
 #include <Geode/Geode.hpp>
-#include <Geode/modify/PlayLayer.hpp>
 #include <numeric>
 
 using namespace geode::prelude;
@@ -17,13 +16,13 @@ void AgentManager::init(PlayLayer* pl, int populationSize, int maxTicks) {
     m_running   = false;
 
     neat::Population::Config cfg;
-    cfg.populationSize = populationSize;
-    cfg.addConnRate    = 0.5f;  // higher chance of new connections
-    cfg.addNodeRate    = 0.2f;
-    cfg.perturbStrength = 0.5f;
-    cfg.mutateWeightRate = 0.9f;  // higher chance of new nodes
+    cfg.populationSize   = populationSize;
+    cfg.addConnRate      = 0.5f;
+    cfg.addNodeRate      = 0.2f;
+    cfg.perturbStrength  = 0.5f;
+    cfg.mutateWeightRate = 0.9f;
+    cfg.crossoverRate    = 0.5f;
     m_pop = std::make_unique<neat::Population>(NUM_INPUTS, NUM_OUTPUTS, cfg);
-
     m_agents.resize(populationSize);
     startGeneration();
 }
@@ -31,7 +30,6 @@ void AgentManager::init(PlayLayer* pl, int populationSize, int maxTicks) {
 void AgentManager::startGeneration() {
     m_currentTick = 0;
     m_running = true;
-
     for (int i = 0; i < (int)m_agents.size(); ++i) {
         auto& a = m_agents[i];
         a.genome     = &m_pop->genomes[i];
@@ -40,17 +38,13 @@ void AgentManager::startGeneration() {
         a.fitness    = 0.f;
         a.ticksAlive = 0;
     }
-
-    log::info("[NEAT] Generation {} started – {} agents", m_pop->generation, m_agents.size());
+    log::info("[NEAT] Generation {} started", m_pop->generation);
 }
 
 void AgentManager::endGeneration() {
-    for (auto& a : m_agents) {
+    for (auto& a : m_agents)
         if (a.genome)
-            // Fitness = distance + time alive bonus
-            a.genome->fitness = a.xPos + (float)a.ticksAlive * 0.5f;
-    }
-
+            a.genome->fitness = a.xPos * 10.f + (float)a.ticksAlive * 0.1f;
     m_pop->evolve();
     m_agents.resize(m_pop->genomes.size());
     startGeneration();
@@ -59,24 +53,17 @@ void AgentManager::endGeneration() {
 bool AgentManager::tick(float levelX, float levelSpeed, float playerY,
                         const std::vector<float>& sensorRays) {
     if (!m_running) return false;
-
     ++m_currentTick;
     bool anyAlive = false;
-
     auto inputs = buildInputs(levelSpeed, playerY, sensorRays);
-
     for (auto& a : m_agents) {
         if (a.dead) continue;
         anyAlive = true;
-
         ++a.ticksAlive;
         a.xPos = std::max(a.xPos, levelX);
-        // Fitness updated live
-        a.fitness = a.xPos + (float)a.ticksAlive * 0.5f;
-
+        a.fitness = a.xPos * 10.f + (float)a.ticksAlive * 0.1f;
         if (a.ticksAlive >= m_maxTicks) a.dead = true;
     }
-
     if (!anyAlive || m_currentTick >= m_maxTicks) {
         endGeneration();
         return false;
@@ -92,7 +79,6 @@ int AgentManager::aliveCount() const {
 
 void AgentManager::stop() {
     m_running = false;
-    log::info("[NEAT] Simulation stopped.");
 }
 
 std::vector<float> AgentManager::buildInputs(float speed, float y,
