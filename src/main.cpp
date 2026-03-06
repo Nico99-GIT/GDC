@@ -42,52 +42,6 @@ static std::vector<float> castRays(PlayLayer* pl) {
     return result;
 }
 
-class $modif
-cat > /workspaces/GDC/src/main.cpp << 'CPPEOF'
-#include <Geode/Geode.hpp>
-#include <Geode/modify/PlayLayer.hpp>
-#include <Geode/modify/MenuLayer.hpp>
-#include "AgentManager.hpp"
-#include "NeatHUD.hpp"
-#include <array>
-
-using namespace geode::prelude;
-using namespace neatmod;
-
-static std::string getSavePath() {
-    auto dir = Mod::get()->getSaveDir();
-    return (dir / "best_genome.txt").string();
-}
-
-static std::vector<float> castRays(PlayLayer* pl) {
-    auto* player = pl->m_player1;
-    if (!player) return std::vector<float>(5, 1.f);
-    float px = player->getPositionX();
-    float py = player->getPositionY();
-    constexpr std::array<std::tuple<float,float,float>, 5> rays = {{
-        {80.f,   0.f,  80.f},
-        {80.f,  40.f,  90.f},
-        {80.f, -20.f,  90.f},
-        {40.f,  60.f,  70.f},
-        {150.f,  0.f, 150.f},
-    }};
-    std::vector<float> result;
-    for (auto [dx, dy, range] : rays) {
-        float tx = px + dx, ty = py + dy, best = 1.f;
-        if (pl->m_objects) {
-            int n = pl->m_objects->count();
-            for (int i = 0; i < n; ++i) {
-                auto* obj = static_cast<GameObject*>(pl->m_objects->objectAtIndex(i));
-                if (!obj) continue;
-                float d = std::sqrt(std::pow(obj->getPositionX()-tx,2)+std::pow(obj->getPositionY()-ty,2));
-                if (d < range) best = std::min(best, d / range);
-            }
-        }
-        result.push_back(best);
-    }
-    return result;
-}
-
 class $modify(NEATPlayLayer, PlayLayer) {
     struct Fields {
         NeatHUD* hud      = nullptr;
